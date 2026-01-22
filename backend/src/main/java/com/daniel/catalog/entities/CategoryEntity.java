@@ -1,0 +1,76 @@
+package com.daniel.catalog.entities;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.util.Objects;
+
+@Entity
+@Table(name = "tb_category")
+public class CategoryEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant createdAt;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updatedAt;
+
+    public CategoryEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public CategoryEntity() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @PrePersist
+    public void prePersist(){
+        this.createdAt = Instant.now();
+    }
+
+    @PreUpdate
+    public void preUpdate(){
+        this.updatedAt = Instant.now();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        CategoryEntity that = (CategoryEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+}
