@@ -1,4 +1,4 @@
-package com.daniel.catalog.controller.exceptions;
+package com.daniel.catalog.controllers.exceptions;
 
 import java.time.Instant;
 

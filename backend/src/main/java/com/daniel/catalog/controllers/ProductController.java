@@ -1,4 +1,4 @@
-package com.daniel.catalog.controller;
+package com.daniel.catalog.controllers;
 
 import com.daniel.catalog.dto.ProductDTO;
 import com.daniel.catalog.services.Exceptions.ResourceNotFoundException;
@@ -62,7 +62,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
 
         productService.delete(id);
 

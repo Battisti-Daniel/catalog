@@ -1,9 +1,8 @@
-package com.daniel.catalog.controller.exceptions;
+package com.daniel.catalog.controllers.exceptions;
 
 import com.daniel.catalog.services.Exceptions.DatabaseException;
 import com.daniel.catalog.services.Exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
-import org.hibernate.dialect.Database;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

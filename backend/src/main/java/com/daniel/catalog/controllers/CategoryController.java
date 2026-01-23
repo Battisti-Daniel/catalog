@@ -1,4 +1,4 @@
-package com.daniel.catalog.controller;
+package com.daniel.catalog.controllers;
 
 import com.daniel.catalog.dto.CategoryDTO;
 import com.daniel.catalog.services.CategoryService;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RequestMapping("/categories")
 @RestController
