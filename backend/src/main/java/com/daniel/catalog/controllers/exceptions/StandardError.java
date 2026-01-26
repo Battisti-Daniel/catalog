@@ -10,6 +10,7 @@ public class StandardError {
     private String message;
     private String path;
 
+
     public StandardError() {
     }
 

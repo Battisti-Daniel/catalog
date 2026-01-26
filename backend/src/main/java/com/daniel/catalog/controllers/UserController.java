@@ -1,8 +1,9 @@
 package com.daniel.catalog.controllers;
 
-import com.daniel.catalog.dto.ProductDTO;
+import com.daniel.catalog.dto.UserDTO;
+import com.daniel.catalog.dto.UserInsertDTO;
 import com.daniel.catalog.services.Exceptions.ResourceNotFoundException;
-import com.daniel.catalog.services.ProductService;
+import com.daniel.catalog.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,46 +15,46 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
-@RequestMapping("/products")
+@RequestMapping("/users")
 @RestController
-public class ProductController {
+public class UserController {
 
     @Autowired
-    private ProductService productService;
+    private UserService productService;
 
     @GetMapping("")
-    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
+    public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
 
         return ResponseEntity.ok().body(productService.findAll(pageable));
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> findAll(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> findAll(@PathVariable Long id) {
 
         return ResponseEntity.ok().body(productService.findById(id));
 
     }
 
     @PostMapping("")
-    public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO ProductDTO) {
+    public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO UserDTO) {
 
-        ProductDTO = productService.insert(ProductDTO);
+        UserDTO newDto = productService.insert(UserDTO);
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(ProductDTO.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDto.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(ProductDTO);
+        return ResponseEntity.created(uri).body(newDto);
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO ProductDTO) {
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO UserDTO) {
 
         try {
 
-            ProductDTO = productService.update(id, ProductDTO);
+            UserDTO = productService.update(id, UserDTO);
 
-            return ResponseEntity.ok().body(ProductDTO);
+            return ResponseEntity.ok().body(UserDTO);
 
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found! " + id);

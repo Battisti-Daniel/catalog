@@ -2,6 +2,9 @@ package com.daniel.catalog.dto;
 
 import com.daniel.catalog.entities.CategoryEntity;
 import com.daniel.catalog.entities.Product;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -11,10 +14,13 @@ import java.util.Set;
 public class ProductDTO {
 
     private Long id;
+    @NotBlank(message = "Campo requerido")
     private String name;
     private String description;
+    @Positive(message = "O preço deve ser um valor positivo")
     private Double price;
     private String imgUrl;
+    @PastOrPresent(message = "A data do produto não pode ser futura")
     private Instant date;
 
     private List<CategoryDTO> categories = new ArrayList<>();

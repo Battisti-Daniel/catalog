@@ -3,7 +3,9 @@ package com.daniel.catalog.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
@@ -20,12 +22,19 @@ public class CategoryEntity {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant updatedAt;
 
+    @ManyToMany(mappedBy = "categories")
+    private Set<Product> products = new HashSet<>();
+
     public CategoryEntity(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
     public CategoryEntity() {
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 
     public Long getId() {
