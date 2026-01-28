@@ -2,6 +2,7 @@ package com.daniel.catalog.controllers;
 
 import com.daniel.catalog.dto.UserDTO;
 import com.daniel.catalog.dto.UserInsertDTO;
+import com.daniel.catalog.dto.UserUpdateDTO;
 import com.daniel.catalog.services.Exceptions.ResourceNotFoundException;
 import com.daniel.catalog.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
@@ -48,13 +49,13 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO UserDTO) {
+    public ResponseEntity<UserDTO> update(@PathVariable Long id,@Valid @RequestBody UserUpdateDTO UserDTO) {
 
         try {
 
-            UserDTO = productService.update(id, UserDTO);
+            UserDTO newDto = productService.update(id, UserDTO);
 
-            return ResponseEntity.ok().body(UserDTO);
+            return ResponseEntity.ok().body(newDto);
 
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found! " + id);

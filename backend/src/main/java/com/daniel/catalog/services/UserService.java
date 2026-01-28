@@ -3,12 +3,14 @@ package com.daniel.catalog.services;
 import com.daniel.catalog.dto.RoleDTO;
 import com.daniel.catalog.dto.UserDTO;
 import com.daniel.catalog.dto.UserInsertDTO;
+import com.daniel.catalog.dto.UserUpdateDTO;
 import com.daniel.catalog.entities.Role;
 import com.daniel.catalog.entities.User;
 import com.daniel.catalog.repositories.RoleRepository;
 import com.daniel.catalog.repositories.UserRepository;
 import com.daniel.catalog.services.Exceptions.DatabaseException;
 import com.daniel.catalog.services.Exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -68,15 +70,20 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO UserDTO) {
+    public UserDTO update(Long id, UserUpdateDTO UserDTO) {
 
-        User entity = UserService.getReferenceById(id);
+        try {
+            User entity = UserService.getReferenceById(id);
 
-        copyDtoToEntity(UserDTO, entity);
+            copyDtoToEntity(UserDTO, entity);
 
-        UserService.save(entity);
+            entity = UserService.save(entity);
 
-        return new UserDTO(entity);
+            return new UserDTO(entity);
+
+        }catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException("Id not found " + id);
+        }
 
     }
 
